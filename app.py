@@ -16,9 +16,9 @@ input_url = st.text_input("Enter Artist/Playlist URL")
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-cid = st.secrets("CLIENT_ID")
-secret = st.secrets("CLIENT_SECRET")
-red_url = st.secrets("REDIRECT_URL")
+cid = st.secrets["CLIENT_ID"]
+secret = st.secrets["CLIENT_SECRET"]
+red_url = st.secrets["REDIRECT_URL"]
 
 def get_link(tracklist):
     url = "spotify:track:"
