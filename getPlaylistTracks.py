@@ -12,8 +12,8 @@ def spotify_login(cid, secret):
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret) 
     return spotipy.Spotify(client_credentials_manager=client_credentials_manager, requests_timeout=10, retries=5)
 
-cid = os.getenv("Client_ID")
-secret = os.getenv("Client_Secret")
+cid = CLIENT_ID
+secret = CLIENT_SECRET
 
 sp = spotify_login(cid, secret)
 
