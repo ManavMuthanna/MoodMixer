@@ -1,4 +1,3 @@
-import time
 from urllib.parse import urlparse
 import streamlit as st
 import pandas as pd
@@ -17,9 +16,9 @@ input_url = st.text_input("Enter Artist/Playlist URL")
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-cid = os.getenv(CLIENT_ID)
-secret = os.getenv(CLIENT_SECRET)
-red_url = os.getenv(REDIRECT_URL)
+cid = os.getenv("CLIENT_ID")
+secret = os.getenv("CLIENT_SECRET")
+red_url = os.getenv("REDIRECT_URL")
 
 def get_link(tracklist):
     url = "spotify:track:"
