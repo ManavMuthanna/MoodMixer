@@ -1,5 +1,5 @@
 import pandas as pd
-
+import streamlit as st
 from dotenv import load_dotenv
 import os
 
@@ -12,8 +12,8 @@ def spotify_login(cid, secret):
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret) 
     return spotipy.Spotify(client_credentials_manager=client_credentials_manager, requests_timeout=10, retries=5)
 
-cid = CLIENT_ID
-secret = CLIENT_SECRET
+cid = st.secrets("CLIENT_ID")
+secret = st.secrets("CLIENT_SECRET")
 
 sp = spotify_login(cid, secret)
 
