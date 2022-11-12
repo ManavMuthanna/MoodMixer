@@ -71,12 +71,12 @@ def get_tracks(_id_):
 
     return audiof_df
 
+import spotipy
 def add_Playlist(username, playlist_name, playlist_desc, track_list):
-    scope = 'playlist-modify-public'
+    from spotipy.oauth2 import SpotifyClientCredentials
 
-    token = SpotifyOAuth(scope=scope, redirect_uri=red_url, client_id = cid, client_secret=secret)
-    sp = spotipy.Spotify(auth_manager=token)
-
+    auth_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
+    sp = spotipy.Spotify(auth_manager=auth_manager)
     #create playlist
     sp.user_playlist_create(user=username, name=playlist_name, public=True, collaborative= False,description=playlist_desc)
 
