@@ -75,7 +75,7 @@ if token:
         #add songs to playlist
         while track_list:
             sp.user_playlist_add_tracks(user=username, playlist_id=playlist, tracks = track_list[:100])
-            tracks = tracks[100:]
+            track_list = track_list[100:]
         
     placeholder.empty()
 
