@@ -8,9 +8,11 @@ load_dotenv()
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
 
 cid = os.getenv("CLIENT_ID")
 secret = os.getenv("CLIENT_SECRET")
+red_url = os.getenv("REDIRECT_URL")
 
 def spotify_login(cid, secret):
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret) 
@@ -68,3 +70,18 @@ def get_tracks(_id_):
     audiof_df = audiof_df[["Track_Name","Track_ID","Artist_Name","acousticness", "danceability", "liveness", "loudness", "speechiness"]]
 
     return audiof_df
+
+def add_Playlist(username, playlist_name, playlist_desc, track_list):
+    scope = 'playlist-modify-public'
+
+    token = SpotifyOAuth(scope=scope, redirect_uri=red_url, client_id = cid, client_secret=secret)
+    sp = spotipy.Spotify(auth_manager=token)
+
+    #create playlist
+    sp.user_playlist_create(user=username, name=playlist_name, public=True, collaborative= False,description=playlist_desc)
+
+    prePlaylist = sp.user_playlists(user=username)
+    playlist = prePlaylist['items'][0]['id']
+
+    #add songs to playlist
+    sp.user_playlist_add_tracks(user=username, playlist_id=playlist, tracks = track_list)

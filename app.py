@@ -33,21 +33,6 @@ def make_clickable(url, text):
     return f'<a target="_blank" href="{url}">{text}</a>'
 
 
-def add_Playlist(username, playlist_name, playlist_desc, track_list):
-    scope = 'playlist-modify-public'
-
-    token = SpotifyOAuth(scope=scope, redirect_uri=red_url, client_id = cid, client_secret=secret)
-    sp = spotipy.Spotify(auth_manager=token)
-
-    #create playlist
-    sp.user_playlist_create(user=username, name=playlist_name, public=True, collaborative= False,description=playlist_desc)
-
-    prePlaylist = sp.user_playlists(user=username)
-    playlist = prePlaylist['items'][0]['id']
-
-    #add songs to playlist
-    sp.user_playlist_add_tracks(user=username, playlist_id=playlist, tracks = track_list)
-
 def get_type(input_url):
     parts = urlparse(input_url)
     directories = parts.path.strip('/').split('/')
@@ -189,6 +174,8 @@ if input_url:
         df3 = df3.to_html(escape=False)
         df4 = df4.to_html(escape=False)
 
+        from getPlaylistTracks import add_Playlist
+        
         with tab1:
             st.subheader("MoodMix - 1")
             with st.form("MoodMix-1 (Playlist)"):
