@@ -74,7 +74,7 @@ def get_tracks(_id_):
 def add_Playlist(username, playlist_name, playlist_desc, track_list):
     scope = 'playlist-modify-public'
 
-    token = SpotifyOAuth(scope=scope, redirect_uri=red_url, client_id = cid, client_secret=secret)
+    token = SpotifyOAuth(scope=scope, redirect_uri=red_url, client_id = cid, client_secret=secret, open_browser=True)
     sp = spotipy.Spotify(auth_manager=token)
 
     #create playlist
