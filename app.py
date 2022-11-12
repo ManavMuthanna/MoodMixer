@@ -55,6 +55,7 @@ def login(password):
        
 with placeholder.container():
     st.write('Please go [here](%s) and authorize Spotify' % authorization_url)
+    st.write("The link will take you to an inaccessible page, copy the complete URL of that page and paste it below :)")
     password = ""
     password = st.text_input("Enter redirect URL")
     token = login(password)
