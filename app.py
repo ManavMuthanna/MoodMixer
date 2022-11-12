@@ -72,6 +72,7 @@ if token:
         prePlaylist = sp.user_playlists(user=username)
         playlist = prePlaylist['items'][0]['id']
 
+        track_list = track_list.tolist()
         #add songs to playlist
         while track_list:
             sp.user_playlist_add_tracks(user=username, playlist_id=playlist, tracks = track_list[:100])
