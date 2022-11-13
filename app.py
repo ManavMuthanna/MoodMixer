@@ -72,11 +72,8 @@ if token:
         prePlaylist = sp.user_playlists(user=username)
         playlist = prePlaylist['items'][0]['id']
 
-        track_list = track_list.tolist()
         #add songs to playlist
-        while track_list:
-            sp.user_playlist_add_tracks(user=username, playlist_id=playlist, tracks = track_list[:100])
-            track_list = track_list[100:]
+        sp.user_playlist_add_tracks(user=username, playlist_id=playlist, tracks = track_list)
         
     placeholder.empty()
 
@@ -239,8 +236,7 @@ if token:
 
             with tab1:
                 st.subheader("MoodMix - 1")
-                with st.form("MoodMix-1 (Playlist)"):
-                    
+                with st.form("MoodMix-1 (Playlist)", clear_on_submit=True):
                     st.write(df0, unsafe_allow_html=True)
                     st.subheader("To save this playlist:")
                     username = ""
@@ -259,7 +255,7 @@ if token:
 
             with tab2: 
                 st.subheader("MoodMix - 2")
-                with st.form("MoodMix-2 (Playlist)"):
+                with st.form("MoodMix-2 (Playlist)", clear_on_submit=True):
                     st.write(df1, unsafe_allow_html=True)
                     st.subheader("To save this playlist:")
                     username = ""
@@ -278,7 +274,7 @@ if token:
 
             with tab3:
                 st.subheader("MoodMix - 3")
-                with st.form("MoodMix-3 (Playlist)"):
+                with st.form("MoodMix-3 (Playlist)", clear_on_submit=True):
                     st.write(df2, unsafe_allow_html=True)
                     st.subheader("To save this playlist:")
                     username = ""
@@ -297,7 +293,7 @@ if token:
 
             with tab4:
                 st.subheader("MoodMix - 4")
-                with st.form("MoodMix-4 (Playlist)"):
+                with st.form("MoodMix-4 (Playlist)", clear_on_submit=True):
                     st.write(df3, unsafe_allow_html=True)
                     st.subheader("To save this playlist:")
                     username = ""
@@ -316,7 +312,7 @@ if token:
 
             with tab5:
                 st.subheader("MoodMix - 5")
-                with st.form("MoodMix-5 (Playlist)"):
+                with st.form("MoodMix-5 (Playlist)", clear_on_submit=True):
                     st.write(df4, unsafe_allow_html=True)
                     st.subheader("To save this playlist:")
                     username = ""
@@ -333,4 +329,125 @@ if token:
                             add_Playlist(user_id, playlist_name, playlist_desc, tracklist_5)
                             st.success("Done!")
 
+        if(type == "artist"):
+            _id_ = get_id(input_url)
+            from getArtistTracks import get_albums
+            album_df = get_albums(_id_)
+            from getArtistTracks import get_artist_tracks
+            df = get_artist_tracks(album_df)
 
+            tab1, tab2, tab3, tab4, tab5 = st.tabs(["MoodMix - 1", "MoodMix - 2", "MoodMix - 3", "MoodMix - 4", "MoodMix - 5"])
+
+            moodmix_0, moodmix_1, moodmix_2, moodmix_3 , moodmix_4 = Model(df)
+
+            tracklist_1 = moodmix_0["Track_ID"]
+            tracklist_2 = moodmix_1["Track_ID"]
+            tracklist_3 = moodmix_2["Track_ID"]
+            tracklist_4 = moodmix_3["Track_ID"]
+            tracklist_5 = moodmix_4["Track_ID"]
+
+            df0 = moodmix_0.loc[:, moodmix_0.columns != 'Track_ID']
+            df1 = moodmix_1.loc[:, moodmix_1.columns != 'Track_ID']
+            df2 = moodmix_2.loc[:, moodmix_2.columns != 'Track_ID']
+            df3 = moodmix_3.loc[:, moodmix_0.columns != 'Track_ID']
+            df4 = moodmix_4.loc[:, moodmix_0.columns != 'Track_ID']
+
+            df0 = df0.to_html(escape=False)
+            df1 = df1.to_html(escape=False)
+            df2 = df2.to_html(escape=False)
+            df3 = df3.to_html(escape=False)
+            df4 = df4.to_html(escape=False)
+
+            with tab1:
+                st.subheader("MoodMix - 1")
+                with st.form("MoodMix-1 (Artist)", clear_on_submit=True):
+                    st.write(df0, unsafe_allow_html=True)
+                    st.subheader("To save this playlist:")
+                    username = ""
+                    username = st.text_input("Enter your Profile URL")
+                    playlist_name = ""
+                    playlist_name = st.text_input("Enter Playlist Name")
+                    playlist_desc = ""
+                    playlist_desc = st.text_input("Enter Playlist Desc")
+                    submit_button = st.form_submit_button("Save")
+                if username:
+                    user_id = get_id(username)
+                    if playlist_name:
+                        if playlist_desc:
+                            add_Playlist(user_id, playlist_name, playlist_desc, tracklist_1)
+                            st.success("Done!")
+            with tab2:
+                st.subheader("MoodMix - 2")
+                with st.form("MoodMix-2 (Artist)", clear_on_submit=True):
+                    st.write(df1, unsafe_allow_html=True)
+                    st.subheader("To save this playlist:")
+                    username = ""
+                    username = st.text_input("Enter your Profile URL")
+                    playlist_name = ""
+                    playlist_name = st.text_input("Enter Playlist Name")
+                    playlist_desc = ""
+                    playlist_desc = st.text_input("Enter Playlist Desc")
+                    submit_button = st.form_submit_button("Save")
+                if username:
+                    user_id = get_id(username)
+                    if playlist_name:
+                        if playlist_desc:
+                            add_Playlist(user_id, playlist_name, playlist_desc, tracklist_2)
+                            st.success("Done!")
+            with tab3:
+                st.subheader("MoodMix - 3")
+                with st.form("MoodMix-3 (Artist)", clear_on_submit=True):
+                    st.write(df2, unsafe_allow_html=True)
+                    st.subheader("To save this playlist:")
+                    username = ""
+                    username = st.text_input("Enter your Profile URL")
+                    playlist_name = ""
+                    playlist_name = st.text_input("Enter Playlist Name")
+                    playlist_desc = ""
+                    playlist_desc = st.text_input("Enter Playlist Desc")
+                    submit_button = st.form_submit_button("Save")
+                if username:
+                    user_id = get_id(username)
+                    if playlist_name:
+                        if playlist_desc:
+                            add_Playlist(user_id, playlist_name, playlist_desc, tracklist_3)
+                            st.success("Done!")
+            with tab4:
+                st.subheader("MoodMix - 4")
+                with st.form("MoodMix-4 (Artist)", clear_on_submit=True):
+                    st.write(df3, unsafe_allow_html=True)
+                    st.subheader("To save this playlist:")
+                    username = ""
+                    username = st.text_input("Enter your Profile URL")
+                    playlist_name = ""
+                    playlist_name = st.text_input("Enter Playlist Name")
+                    playlist_desc = ""
+                    playlist_desc = st.text_input("Enter Playlist Desc")
+                    submit_button = st.form_submit_button("Save")
+                if username:
+                    user_id = get_id(username)
+                    if playlist_name:
+                        if playlist_desc:
+                            add_Playlist(user_id, playlist_name, playlist_desc, tracklist_4)
+                            st.success("Done!")
+            with tab5:
+                st.subheader("MoodMix - 5")
+                with st.form("MoodMix-5 (Artist)", clear_on_submit=True):
+                    st.write(df4, unsafe_allow_html=True)
+                    st.subheader("To save this playlist:")
+                    username = ""
+                    username = st.text_input("Enter your Profile URL")
+                    playlist_name = ""
+                    playlist_name = st.text_input("Enter Playlist Name")
+                    playlist_desc = ""
+                    playlist_desc = st.text_input("Enter Playlist Desc")
+                    submit_button = st.form_submit_button("Save")
+                if username:
+                    user_id = get_id(username)
+                    if playlist_name:
+                        if playlist_desc:
+                            add_Playlist(user_id, playlist_name, playlist_desc, tracklist_5)
+                            st.success("Done!")
+
+if not token:
+    st.warning("You must authorize to use the app!")
